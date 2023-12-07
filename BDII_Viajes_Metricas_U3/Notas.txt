@@ -1,0 +1,105 @@
+=============================================================
+Limpiar configuracion cache y rutas para q se actualice lo modificado:
+
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+
+=============================================================
+No se uso:
+
+composer require superbalist/laravel-prometheus-exporter
+(Contiene: CollectorRegistry y RenderTextFormat)
+=============================================================
+Se usa:
+
+composer require promphp/prometheus_client_php
+
+composer require predis/predis
+
+
+
+php artisan make:middleware PrometheusMetricsMiddleware
+
+php artisan make:controller PrometheusMetricsController
+
+
+
+composer require rakutentech/laravel-request-docs --dev
+php artisan vendor:publish --tag=request-docs-config
+
+
+
+
+=============================================================
+Comandos Extra:
+
+
+netstat -ano | findstr "3306"
+
+
+
+
+
+
+
+=============================================================
+Bases de Datos Diferenciadas: Redis puede manejar múltiples "bases de datos" 
+numeradas dentro de la misma instancia del servidor. Esto se hace especificando 
+un número de base de datos (por ejemplo, db=0, db=1, etc.) en la configuración de conexión.
+
+Cuando configuras el almacenamiento de Prometheus para usar Redis, puedes especificar 
+una base de datos diferente si lo deseas, aunque no es estrictamente necesario. 
+Por ejemplo:
+
+$redisAdapter = new Redis([
+    'host' => 'redis',
+    'port' => 6379,
+    'timeout' => 0.1,
+    'read_timeout' => 10,
+    'persistent_connections' => false,
+    'db' => 1, // Usando una base de datos diferente para las métricas
+]);
+=============================================================
+docker-compose de Redis:
+
+services:
+  # Tus otros servicios...
+  redis-metricas:
+    container_name: redis-metricas
+    image: redis:latest
+    ports:
+      - "6379:6379"
+=============================================================
+M_Subir nube / Laravel-Prometheus
+Buscar: "lo q qu"
+=============================================================
+docker-compose de grafana:
+
+services:
+  grafana-metricas:
+    container_name: grafana-metricas
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+=============================================================
+
+
+Cambiar redis por redis-metricas
+
+=============================================================
+=============================================================
+Dockerfile de Prueba2_vAnterior:
+
+FROM php:8.2-zts-alpine
+WORKDIR /var/www/html
+RUN docker-php-ext-install mysqli && \
+    docker-php-ext-install pdo_mysql 
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+COPY . .
+RUN composer install
+
+CMD ["php","artisan","serve","--host=0.0.0.0"]

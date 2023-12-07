@@ -1,0 +1,74 @@
+Version de imagenes 
+#maynerac/api-viajes-u1:1.0(Imagen de la API-Viajes)
+#php:8.2.13
+#mysql:8.2.0-1.el8
+#adminer:4.8.1
+#redis:7.2.3
+#prometheus:v2.48.0
+================================================================
+
+docker network create viajes-network
+
+================================================================
+
+docker run -d \
+  --name viajes-db \
+  --network viajes-network \
+  --restart always \
+  -e MYSQL_ROOT_PASSWORD=upt.2023 \
+  -e MYSQL_DATABASE=gestion_viajes \
+  -e MYSQL_USER=admin \
+  -e MYSQL_PASSWORD=upt.2023 \
+  -p 3306:3306 \
+  maynerac/mysql-viajes-u1:1.0 --default-authentication-plugin=mysql_native_password
+
+================================================================
+
+docker run -d \
+  --name viajes-adminer \
+  --network viajes-network \
+  --restart always \
+  -p 8484:8080 \
+  maynerac/adminer-viajes-u1:1.0
+
+================================================================
+
+docker run -d \
+  --name viajes-api \
+  --network viajes-network \
+  --restart on-failure \
+  -p 8000:8000 \
+  -e DB_HOST=viajes-db \
+  maynerac/api-viajes-u1:1.0
+
+================================================================
+
+Comandos "php artisan" dentro del contenedor creado:
+
+================================================================
+(En caso crear el contenedor con docker run)(Se puede usar si ya esta corriendo el contenedor)
+docker run
+docker exec viajes-api php artisan migrate
+docker exec viajes-api php artisan db:seed
+
+========================================================
+(En caso usar un archivo docker-compose.yml)
+"viajes-api" nombre del servicio dentro de "docker-compose.yml"
+
+docker-compose up -d
+docker-compose run --rm viajes-api sh -c "php artisan migrate"
+docker-compose run --rm viajes-api sh -c "php artisan db:seed"
+
+
+
+
+
+
+
+
+
+
+
+
+
+

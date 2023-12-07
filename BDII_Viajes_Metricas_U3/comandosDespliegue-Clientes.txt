@@ -1,0 +1,51 @@
+===============================================
+Comandos de Despliegue:
+
+docker-compose up -d
+
+docker exec -it bd_clientes /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Upt.2022 -i /tmp/clientes.sql
+
+
+
+===============================================
+Se agrego para Metricas:
+
+dotnet add package prometheus-net
+dotnet add package prometheus-net.AspNetCore
+
+
+Controllers/
+PrometheusMetricsController.cs(No se creo)
+
+Middleware/
+PrometheusMetricsMiddleware.cs
+
+Agregar en Program.cs:
+
+using Prometheus;
+using ClienteAPI.Middleware;
+...
+app.UseRouting();
+app.UseHttpMetrics();
+app.UseMiddleware<PrometheusMetricsMiddleware>();
+...
+
+
+
+
+
+
+===============================================
+Despliegue en local:
+
+dotnet run
+
+
+===============================================
+Otros Comandos:
+
+dotnet --version
+dotnet nuget --version
+
+dotnet list package
+
