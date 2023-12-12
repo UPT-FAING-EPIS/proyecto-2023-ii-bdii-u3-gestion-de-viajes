@@ -13,3 +13,11 @@ scrape_configs:
   - job_name: "clientes-api"
     static_configs:
       - targets: ["host.docker.internal:5000"]
+
+  - job_name: "pasajes-api"
+    static_configs:
+      - targets: ["host.docker.internal:8001"]
+
+  - job_name: "usuarios-api"
+    static_configs:
+      - targets: ["host.docker.internal:5001"]

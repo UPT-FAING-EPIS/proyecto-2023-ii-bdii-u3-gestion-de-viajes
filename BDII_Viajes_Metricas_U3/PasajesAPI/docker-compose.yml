@@ -1,0 +1,36 @@
+version: '3.1'
+services:
+  pasajes-db:
+    container_name: pasajes-db
+    image: maynerac/mysql-viajes-u1:2.0 #mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: upt.2023
+      MYSQL_DATABASE: gestion_pasajes
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: upt.2023
+    ports:
+      - 3307:3306
+  pasajes-adminer:
+    container_name: pasajes-adminer
+    image: maynerac/adminer-viajes-u1:2.0 #adminer
+    restart: always
+    ports:
+      - 8485:8080
+    depends_on:
+      - pasajes-db
+  pasajes-api:
+    container_name: pasajes-api
+    build: .
+    ports:
+      - "8001:8000"
+    environment:
+      - DB_HOST=pasajes-db
+    restart: on-failure
+  redis-metricas-pasajes:
+    container_name: redis-metricas-pasajes
+    image: maynerac/redis-metricas-u2:2.0 #redis:latest
+    ports:
+      - "6380:6379"
+    restart: always

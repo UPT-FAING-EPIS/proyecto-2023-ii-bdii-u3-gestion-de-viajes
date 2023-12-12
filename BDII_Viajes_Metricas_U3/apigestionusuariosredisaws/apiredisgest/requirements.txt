@@ -1,0 +1,7 @@
+flask
+redis
+werkzeug
+boto3
+prometheus_client
+gunicorn
+gevent

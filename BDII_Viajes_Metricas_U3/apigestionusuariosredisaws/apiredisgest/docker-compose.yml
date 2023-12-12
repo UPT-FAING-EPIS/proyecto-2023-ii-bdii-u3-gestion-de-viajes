@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "5001:5000" #5001 para pruebas en local
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA4AMTLYOKPHSMUZWC
+      - AWS_SECRET_ACCESS_KEY=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
+      - AWS_DEFAULT_REGION=us-east-2
+  redis:
+    image: "redis:alpine"

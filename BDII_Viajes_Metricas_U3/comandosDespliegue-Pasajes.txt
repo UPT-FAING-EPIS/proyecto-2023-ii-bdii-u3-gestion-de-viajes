@@ -1,0 +1,30 @@
+=========================================================================
+
+Se hicieron varios ajuestes en la api de Pasajes:
+
+=========================================================================
+
+agregue contenedroes de: mysql, adminer, redis(para metricas)
+
+agregue midleware y controlador de metricas de prometheus con redis
+
+=========================================================================
+instalar librerias con comandos:
+
+composer require promphp/prometheus_client_php
+
+composer require predis/predis
+
+
+agregue un reques-docs(es como el swagger)
+
+=========================================================================
+
+movi sus rutas de web.php a api.php
+
+=========================================================================
+
+Nota:
+El ejecutar las migraciones no parece afectar en nada al parecer
+No se si si REST API usa o no la bd en mysql q genera esas migraciones
+Sus modelo no existen, asi q las migraciones no presentan relacion entre si con Foreing Keys
