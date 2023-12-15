@@ -9,3 +9,9 @@ INTEGRANTES
 | Yastin Zevallos     | 
 | Joel Ccalli         |  
 | Erick Salinas       |  
+
+Repositorio con el uso de GitHub Actions y despliegue automatizado a DockerHub:  
+https://github.com/MAYnerAC/api-viajes-metricas-u3
+
+Repositorio en DockerHub:  
+https://hub.docker.com/r/maynerac/api-viajes-metricas-u3/tags
