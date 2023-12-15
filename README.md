@@ -6,6 +6,6 @@ Actividad Nº1
 INTEGRANTES
 |---------------------|
 | Mayner Anahua       | 
-| Yastin Zeballos     | 
+| Yastin Zevallos     | 
 | Joel Ccalli         |  
 | Erick Salinas       |  
